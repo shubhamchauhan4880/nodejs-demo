@@ -26,11 +26,6 @@ pipeline {
                            sh "docker push 790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:latest"
             }
         }
-post {
-        always {
-            sh 'docker logout'
-        }
-    }
 }
 }
 
