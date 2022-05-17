@@ -24,10 +24,10 @@ pipeline {
             steps {
                 script{
                         sh'aws configure'
-                        sh'AWS Access Key ID [None]:AKIA3P5QMT4WCRHW7PNE '
-                        sh'AWS Secret Access Key [None]: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'
-                        sh'Default region name [None]: us-east-1'
-                        sh'Default output format [None]: json'
+                        sh'AKIA3P5QMT4WCRHW7PNE '
+                        sh'eHiUbhAXaZ2CgoPZKUMjYMXfce5uHwc+4RzCL6Rh'
+                        sh'us-east-1'
+                        sh'json'
                         sh 'docker tag shubhamchauhan4880/nodeapp:$BUILD_NUMBER 790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:version1'
                         sh 'docker push 790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:version1'
                        }
