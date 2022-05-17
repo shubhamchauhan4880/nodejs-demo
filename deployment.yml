@@ -1,25 +1,42 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-jenkins 
   labels:
-    app: application
+    app: nodejs
+  name: taskprac
 spec:
+  replicas: 4
   selector:
     matchLabels:
-        app: application
-  replicas: 3
-  strategy:
-    type: RollingUpdate
+      app: springboot-app
   template:
     metadata:
       labels:
-        app: application
+        app: nodejs
     spec:
       containers:
-        - name: applicationdemo
-          image: 790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:version1
-          ports:
-            - containerPort: 80
-              protocol: TCP
-          imagePullPolicy: Always
+      - name:taskprac
+        image: 790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:version1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8085
+          name: http
+          protocol: TCP
+# service type loadbalancer       
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: nodejs
+    k8s-app: nodejsapp
+  name: taskprac
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8085
+  type: LoadBalancer
+  selector:
+    app: nodejs
