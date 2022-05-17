@@ -23,14 +23,6 @@ pipeline {
               }
         }
 
-         stage('push to ecr') {
-            steps {
-                script{
-                        sh 'docker tag shubhamchauhan4880/nodeapp:$BUILD_NUMBER 790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:$BUILD_NUMBER .'
-                        sh 'docker push 790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:$BUILD_NUMBER .'
-                       }
-                    }
-         }
 }
 }
 
