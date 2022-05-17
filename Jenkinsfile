@@ -22,6 +22,11 @@ pipeline {
                  }
               }
         }
+        stage(‘Pushing to ECR’) {
+                      steps{
+                           script {
+                                    sh'docker tag shubhamchauhan4880/nodeapp:1 790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:version1'
+                                    sh'docker push 790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:version1'
 
 }
 }
