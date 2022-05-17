@@ -32,7 +32,10 @@ pipeline {
         }
         stage('Deploy'){
             steps {
-                 sh 'kubectl apply -f deployment.yml'
+                script{
+                    withKubeconfig([credentialsIs:'K8S',serverUrl: "]){
+                      sh 'kubectl apply -f deployment.yml'
+                  }
             }
         }
     
