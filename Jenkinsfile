@@ -19,10 +19,12 @@ pipeline {
             steps{
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
-        }
-        stage('push image') {
-            steps{
-                sh 'docker push shubhamchauhan4880/nodeapp:$BUILD_NUMBER'
+        }                  
+        stage('Pushing to ECR') {
+            steps{  
+                   script {
+                           sh "docker tag nodeapp:$BUILD_NUMBER .790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:latest"
+                           sh "docker push 790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:latest
             }
         }
 }
