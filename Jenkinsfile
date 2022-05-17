@@ -20,14 +20,13 @@ pipeline {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }                  
-        stage('Pushing to ECR') {
-            steps{  
+         stage('Deploy') {
+            steps {
                 script{
-                           sh "docker tag nodeapp:$BUILD_NUMBER .790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:$BUILD_NUMBER ."
-                           sh "docker push 790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:$BUILD_NUMBER ."
-            }
-        }
-        }
+                        docker.withRegistry('https://790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac', 'ecr:us-east-1:aws-credentials') {
+                    app.push("${env.BUILD_NUMBER}")
+                    app.push("latest")
+                    }
 }
 }
 
