@@ -32,8 +32,11 @@ pipeline {
         }
         stage('Deploy'){
             steps {
-                
-                            kubernetesDeploy(configs: "deployment.yml", kubeconfigId: "K8S")            
+                withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'K8S', namespace: '', serverUrl: '') {
+    
+                                             sh'sudo kubectl apply -f deployment.yml'
+                }
+                      
                 
             }
         }
