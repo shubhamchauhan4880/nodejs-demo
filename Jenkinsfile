@@ -15,19 +15,17 @@ pipeline {
                 sh 'docker build -t shubhamchauhan4880/nodeapp:$BUILD_NUMBER .'
             }
         }
-        stage('login to dockerhub') {
-            steps{
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-            }
-        }                  
-         stage('Deploy') {
+        stage('Logging into AWS ECR') {
+              steps {
+                    script {
+                               sh 'aws ecr get-login-password — region us-east-1 | docker login — username AWS — password-stdin 790107037484.dkr.ecr.us-east-1.amazonaws.com”
+                 }
+              }
+        }
+
+         stage('push to ecr') {
             steps {
                 script{
-                        sh'aws configure'
-                        sh'AKIA3P5QMT4WCRHW7PNE '
-                        sh'eHiUbhAXaZ2CgoPZKUMjYMXfce5uHwc+4RzCL6Rh'
-                        sh'us-east-1'
-                        sh'json'
                         sh 'docker tag shubhamchauhan4880/nodeapp:$BUILD_NUMBER 790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:version1'
                         sh 'docker push 790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:version1'
                        }
