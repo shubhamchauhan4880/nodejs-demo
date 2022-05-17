@@ -32,9 +32,8 @@ pipeline {
         }
         stage('Deploy'){
             steps {
-                {
+                
                             kubernetesDeploy(configs: "deployment.yml", kubeconfigId: "K8S")            
-}
                 
             }
         }
