@@ -1,27 +1,25 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app: nodejs
-  name: taskprac
+  name: hello-kubernetes
+  namespace :nodejs
 spec:
-  replicas: 4
+  replicas: 3
   selector:
     matchLabels:
-      app: springboot-app
+      app: hello-kubernetes
   template:
     metadata:
       labels:
-        app: nodejs
+        app: hello-kubernetes
     spec:
       containers:
-      - name:taskprac
+      - name: hello-kubernetes
         image: 790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:version1
-        imagePullPolicy: Always
         ports:
-        - containerPort: 8085
-          name: http
-          protocol: TCP
+        - containerPort: 8080
+
 # service type loadbalancer       
 ---
 apiVersion: v1
