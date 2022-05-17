@@ -22,9 +22,11 @@ pipeline {
         }                  
         stage('Pushing to ECR') {
             steps{  
+                script{
                            sh "docker tag nodeapp:$BUILD_NUMBER .790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:latest"
                            sh "docker push 790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:latest"
             }
+        }
         }
 }
 }
