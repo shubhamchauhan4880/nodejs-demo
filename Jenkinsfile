@@ -23,10 +23,10 @@ pipeline {
          stage('Deploy') {
             steps {
                 script{
-                        sh'aws configure  AWS Access Key ID [None]:AKIA3P5QMT4WCRHW7PNE'
-                        sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 790107037484.dkr.ecr.us-east-1.amazonaws.com'
+                       docker.withRegistry('https://720766170633.dkr.ecr.us-east-2.amazonaws.com', 'ecr:us-east-1:aws-credentials'){
                         sh 'docker tag shubhamchauhan4880/nodeapp:$BUILD_NUMBER 790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:version1'
                         sh 'docker push 790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:version1'
+                       }
                     }
          }
 }
