@@ -33,7 +33,9 @@ pipeline {
         stage('Deployment'){
             steps {
                 withKubeConfig(caCertificate: '', clusterName: 'my-eks-cluster', contextName: '', credentialsId: 'mykubeconfig', namespace: '', serverUrl: 'https://351106EC9AD733FA5299F5B4269480ED.gr7.us-east-1.eks.amazonaws.com') {
-                                       sh'kubectl apply -f Deployment.yml'
+                                                        sh'ssh -i "demo.pem" ec2-user@ec2-44-200-133-233.compute-1.amazonaws.com'                                   
+                                                        sh'kubectl apply -f Deployment.yml'
+                                    
 
 }
                         
