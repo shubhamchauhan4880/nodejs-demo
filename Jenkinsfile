@@ -34,8 +34,8 @@ pipeline {
             steps {
                 withKubeConfig(caCertificate: '', clusterName: 'cluster-info', contextName: '', credentialsId: 'mykubeconfig', namespace: '', serverUrl: 'https://172.31.11.23:8443') {
                         
-                                                        sh'sudo chown -R $USER $HOME/.kube $HOME/.minikube'
-                                                        sh'sudo chown -R $USER $HOME/.kube $HOME/.minikube'
+                                                        sh'chown -R $USER $HOME/.kube $HOME/.minikube'
+                                                        sh'chown -R $USER $HOME/.kube $HOME/.minikube'
                                                         sh'kubectl apply -f Deployment.yml'
                                     
 
