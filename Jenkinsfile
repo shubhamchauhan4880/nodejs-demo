@@ -32,7 +32,11 @@ pipeline {
         }
         stage('Deployment'){
             steps {
-                 sh'kubectl apply -f deployment.yml'
+                withKubeConfig(caCertificate: '', clusterName: 'my-eks-cluster', credentialsId: 'K8S', namespace: '', serverUrl: 'http://44.200.133.233') {
+                    
+                                         sh'kubectl apply -f deployment.yml'
+}
+                 
                       
                  }
         }
