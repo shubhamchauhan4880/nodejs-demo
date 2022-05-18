@@ -1,25 +1,40 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nodejs-app-jenkins 
-  labels:
-    app: nodejs-app
+  name: nodejs
 spec:
+  replicas: 5
   selector:
     matchLabels:
-        app: nodejs-app
-  replicas: 3
-  strategy:
-    type: RollingUpdate
+      app: nodejs
+      version: blue
   template:
     metadata:
+      name: nodejs
       labels:
-        app: nodejs-app
+        app: nodejs
+        version: blue
     spec:
       containers:
-        - name: nodejs-app
-          image: 790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:version1
-          ports:
-            - containerPort: 3000
-              protocol: TCP
-          imagePullPolicy: Always
+      - name: nodejs
+        image: 790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:version1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service 
+metadata:
+  name: nodejs
+  labels:
+    app: nodejs
+spec:
+  selector:
+    app: nodejs
+    version: blue
+  type: NodePort
+  ports:
+  - nodePort: 31113
+    port: 80
+    targetPort: 80
