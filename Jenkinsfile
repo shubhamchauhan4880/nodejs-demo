@@ -32,7 +32,7 @@ pipeline {
         }
         stage('Deployment'){
             steps {
-                withKubeConfig(caCertificate: '', clusterName: 'my-eks-cluster', contextName: '', credentialsId: 'mykubeconfig', namespace: '', serverUrl: 'https://351106EC9AD733FA5299F5B4269480ED.gr7.us-east-1.eks.amazonaws.com') {
+                withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'mykubeconfig', namespace: '', serverUrl: 'https://172.31.11.23:8443') {
                                                                                           
                                                         sh'kubectl apply -f Deployment.yml'
                                     
