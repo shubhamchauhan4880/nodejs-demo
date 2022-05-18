@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hello-kubernetes
-  namespace : argocd
+  namespace : taskeks
 spec:
   replicas: 3
   selector:
