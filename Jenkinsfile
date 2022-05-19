@@ -30,15 +30,6 @@ pipeline {
                            }
                       } 
         }
-        stage('Deployment'){
-            steps {
-                
-                withKubeConfig(caCertificate: '', clusterName: 'cluster-info', contextName: '', credentialsId: 'mykubeconfig', namespace: '', serverUrl: 'https://172.31.11.23:8443') {
-                        
-                                                        sh'kubectl apply -f Deployment.yml'
-                                    
-
-}
                         
            
 }
