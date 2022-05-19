@@ -1,41 +1,21 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-gateway
+  name: hello-kubernetes
+  namespace : argocd
 spec:
+  replicas: 3
   selector:
     matchLabels:
-      app: api-gateway
-  replicas: 1
-  template: # template for the pods
+      app: hello-kubernetes
+  template:
     metadata:
       labels:
-        app: nodejs
+        app: hello-kubernetes
     spec:
       containers:
-      - name: nodejs
+      - name: hello-kubernetes
         image: 790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:version1
-        env:
-        - name: nodejsdemp
-          value: production-microservice
-        imagePullPolicy: Never
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 3000
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: fleetman-api-gateway
-
-spec:
-  selector:
-    app: api-gateway
-
-  ports:
-    - name: http
-      port: 8080
-      nodePort: 8090
-
-  type: NodePort
+        ports:
+        - containerPort: 3000
