@@ -1,29 +1,41 @@
-#01-ECR-Nginx-Deployment.yml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-name: kubeapp-ecr
-labels:
-   app: kubeapp-ecr
+  name: api-gateway
 spec:
-replicas: 2
-selector:
-   matchLabels:
-      app: kubeapp-ecr
-template:
-   metadata:
+  selector:
+    matchLabels:
+      app: api-gateway
+  replicas: 1
+  template: # template for the pods
+    metadata:
       labels:
-      app: kubeapp-ecr
-   spec:
+        app: nodejs
+    spec:
       containers:
-      - name: kubeapp-ecr
-         image: 790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:version1
-         resources:
-            requests:
-            memory: "128Mi"
-            cpu: "500m"
-            limits:
-            memory: "256Mi"
-            cpu: "1000m"
-         ports:
-            - containerPort: 80
+      - name: nodejs
+        image: 790107037484.dkr.ecr.us-east-1.amazonaws.com/taskprac:version1
+        env:
+        - name: nodejsdemp
+          value: production-microservice
+        imagePullPolicy: Never
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fleetman-api-gateway
+
+spec:
+  selector:
+    app: api-gateway
+
+  ports:
+    - name: http
+      port: 8080
+      nodePort: 3000
+
+  type: NodePort
